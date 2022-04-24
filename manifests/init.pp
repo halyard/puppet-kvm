@@ -5,7 +5,7 @@
 # @param guests sets guest VM information for management
 class kvm (
   String $image_path,
-  Hash[String, String] $images = [],
+  Hash[String, Hash] $images = [],
   Hash[String, Hash] $guests = {},
 ) {
   package { 'qemu-headless': }
