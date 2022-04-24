@@ -8,7 +8,7 @@ define kvm::guest (
   Hash[String, Hash] $disks,
   String $vm_name = $title,
 ) {
-  $disks::lvs.each | String $name, Hash $options | {
+  $disks.each | String $name, Hash $options | {
     disks::lv { "guest-${vm_name}-${name}":
       * => $options,
     }
