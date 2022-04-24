@@ -35,7 +35,7 @@ define kvm::guest (
     content => template('kvm/guest.conf.erb'),
   }
 
-  ~> service { "/guest-${vm_name}":
+  ~> service { "kvm@${vm_name}":
     ensure => running,
     enable => true,
   }
