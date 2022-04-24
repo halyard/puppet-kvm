@@ -20,9 +20,9 @@ define kvm::guest (
 
   $image_path = "${kvm::image_path}/${image}"
   $root_device = "/dev/${disks['root']['vg']}/guest-${vm_name}-root"
-  $vnc_path = "${kvm::console_path}/vnc/$vm_name.sock"
-  $serial_path = "${kvm::console_path}/serial/$vm_name.sock"
-  $monitor_path = "${kvm::console_path}/monitor/$vm_name.sock"
+  $vnc_path = "${kvm::console_path}/vnc/${vm_name}.sock"
+  $serial_path = "${kvm::console_path}/serial/${vm_name}.sock"
+  $monitor_path = "${kvm::console_path}/monitor/${vm_name}.sock"
 
   exec { "Create root for ${root_device}":
     command => "/usr/bin/qemu-img convert -O raw --target-is-zero -n '${image_path}' '${root_device}'",
@@ -32,7 +32,7 @@ define kvm::guest (
 
   -> file { "/etc/kvm/${vm_name}":
     ensure  => file,
-    content => template('kvm/guest.conf.erb')
+    content => template('kvm/guest.conf.erb'),
   }
 
   ~> service { "/guest-${vm_name}":

@@ -11,8 +11,8 @@ class kvm (
   Hash[String, Hash] $guests = {},
 ) {
   package { [
-    'qemu-headless',
-    'socat',
+      'qemu-headless',
+      'socat',
   ]: }
 
   file { [$console_path, "${console_path}/vnc", "${console_path}/serial",  "${console_path}/monitor"]:
