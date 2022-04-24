@@ -1,0 +1,10 @@
+args="-enable-kvm -machine q35 -device intel-iommu -cpu host \
+  -drive file=<%= @root_device %>,format=raw,if=virtio,aio=native,cache.direct=on \
+  -m <%= @ram %> -smp <%= @cores %> \
+  -serial unix:<%= @serial_path %>,server,nowait \
+  -monitor unix:<%= @monitor_path %>,server,nowait \
+  -vnc unix:<%= @vnc_path %>"
+
+haltcmd="echo 'system_powerdown' | socat - UNIX-CONNECT:<%= @monitor_path %>"
+waitcmd="while test -S <%= @monitor_path %> ; do date ; sleep 1s ; done"
+

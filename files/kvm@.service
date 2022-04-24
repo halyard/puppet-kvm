@@ -1,0 +1,11 @@
+[Unit]
+Description=QEMU virtual machine
+
+[Service]
+EnvironmentFile=/etc/kvm/%i
+ExecStart=/usr/bin/qemu-system-x86_64 -name %i $args
+ExecStop=/usr/bin/bash -c ${haltcmd}
+ExecStop=/usr/bin/bash -c ${waitcmd}
+
+[Install]
+WantedBy=multi-user.target
