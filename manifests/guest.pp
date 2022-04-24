@@ -14,7 +14,7 @@ define kvm::guest (
     }
   }
 
-  exec { "/usr/bin/qemu-img convert -O raw '${kvm::image_path}/${image}' '/dev/${disks['root']['vg']}/guest-${vm_name}-root'":
+  exec { "/usr/bin/qemu-img convert -O raw --target-is-zero '${kvm::image_path}/${image}' '/dev/${disks['root']['vg']}/guest-${vm_name}-root'":
     onlyif  => "/usr/bin/file -sLb '/dev/${disks['root']['vg']}/guest-${vm_name}-root' | grep '^data$'",
     require => Disks::Lv["guest-${vm_name}-root"],
   }
