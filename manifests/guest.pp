@@ -17,7 +17,7 @@ define kvm::guest (
   $image_path = "${kvm::image_path}/${image}"
   $root_device = "/dev/${disks['root']['vg']}/guest-${vm_name}-root"
 
-  exec { "Create root for $root_device":
+  exec { "Create root for ${root_device}":
     command => "/usr/bin/qemu-img convert -O raw --target-is-zero -n '${image_path}' '${root_device}'",
     onlyif  => "/usr/bin/file -sLb '${root_device}' | grep '^data$'",
     require => Disks::Lv["guest-${vm_name}-root"],
