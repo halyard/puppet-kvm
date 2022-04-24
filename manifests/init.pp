@@ -11,16 +11,14 @@ class kvm (
   package { 'qemu-headless': }
 
   $images.each | String $name, Hash $options | {
-    file { "${image_path}/${name}":
-      ensure         => file,
-      source         => $options['url'],
-      checksum_value => $options['checksum'],
-      mode           => '0644',
-      owner          => 'root',
-      group          => 'root',
+    kvm::image { $name:
+      * => $options,
     }
   }
 
   $guests.each | String $name, Hash $options | {
+    kvm::guest { $name:
+      * => $options,
+    }
   }
 }
