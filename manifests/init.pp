@@ -12,12 +12,12 @@ class kvm (
 
   $images.each | String $name, Hash $options | {
     file { "${image_path}/${name}":
-      ensure   => file,
-      source   => $options['url'],
-      checksum => $options['checksum'],
-      mode     => '0644',
-      owner    => 'root',
-      group    => 'root',
+      ensure         => file,
+      source         => $options['url'],
+      checksum_value => $options['checksum'],
+      mode           => '0644',
+      owner          => 'root',
+      group          => 'root',
     }
   }
 
