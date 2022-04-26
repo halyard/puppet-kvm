@@ -1,0 +1,3 @@
+<% @guests.map { |x| x['bridge'] }.compact.each do |x| -%>
+allow <%= x %>
+<% end -%>

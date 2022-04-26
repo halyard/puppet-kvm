@@ -34,6 +34,18 @@ class kvm (
     }
   }
 
+  file { '/etc/qemu':
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
+  file { '/etc/qemu/bridge.conf':
+    ensure  => file,
+    content => template('kvm/bridge.conf.erb'),
+  }
+
   file { '/etc/kvm':
     ensure => directory,
     owner  => 'root',

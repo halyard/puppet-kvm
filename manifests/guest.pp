@@ -5,12 +5,14 @@
 # @param ram sets the memory given to the VM
 # @param cores sets the CPU core count given to the VM
 # @param vm_name sets the name of the VM
+# @param bridge sets the bridge interface to use for networking
 define kvm::guest (
   String $image,
   Hash[String, Hash] $disks,
   Integer $ram = 1024,
   Integer $cores = 1,
   String $vm_name = $title,
+  Optional[String] $bridge = undef,
 ) {
   $disks.each | String $name, Hash $options | {
     disks::lv { "guest-${vm_name}-${name}":
@@ -33,6 +35,7 @@ define kvm::guest (
   -> file { "/etc/kvm/${vm_name}":
     ensure  => file,
     content => template('kvm/guest.conf.erb'),
+    require => File['/etc/qemu/bridge.conf'],
   }
 
   ~> service { "kvm@${vm_name}":
