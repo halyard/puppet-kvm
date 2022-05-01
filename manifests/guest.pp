@@ -27,7 +27,7 @@ define kvm::guest (
   $monitor_path = "${kvm::console_path}/monitor/${vm_name}.sock"
 
   exec { "Create root for ${root_device}":
-    command => "/usr/bin/qemu-img convert -O raw --target-is-zero -n '${image_path}' '${root_device}'",
+    command => "/usr/bin/qemu-img convert -O raw -n '${image_path}' '${root_device}'",
     onlyif  => "/usr/bin/file -sLb '${root_device}' | grep '^data$'",
     require => Disks::Lv["guest-${vm_name}-root"],
   }
