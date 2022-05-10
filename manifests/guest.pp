@@ -25,6 +25,7 @@ define kvm::guest (
   $vnc_path = "${kvm::console_path}/vnc/${vm_name}.sock"
   $serial_path = "${kvm::console_path}/serial/${vm_name}.sock"
   $monitor_path = "${kvm::console_path}/monitor/${vm_name}.sock"
+  $mac_address_seed = fqdn_rand(4294967295, 'macaddress', true)
 
   exec { "Create root for ${root_device}":
     command => "/usr/bin/qemu-img convert -O raw -n '${image_path}' '${root_device}'",
