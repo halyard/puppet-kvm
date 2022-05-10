@@ -3,7 +3,7 @@ args="-enable-kvm -machine q35 -device intel-iommu -cpu host \
   -m <%= @ram %> -smp <%= @cores %> \
   -serial unix:<%= @serial_path %>,server,nowait \
   -monitor unix:<%= @monitor_path %>,server,nowait \
-  -nic <%= @bridge ? "bridge,br=#{@bridge},model=virtio-net-pci" : 'user' %>,mac=52:54:<% @mac_address_seed.to_s(16).rjust(8, '0').scan(/\w{2}/).join(':') %> \
+  -nic <%= @bridge ? "bridge,br=#{@bridge},model=virtio-net-pci" : 'user' %>,mac=52:54:<% @mac_address_seed.to_i.to_s(16).rjust(8, '0').scan(/\w{2}/).join(':') %> \
   -vnc unix:<%= @vnc_path %>"
 
 haltcmd="echo 'system_powerdown' | socat - UNIX-CONNECT:<%= @monitor_path %> || true"
