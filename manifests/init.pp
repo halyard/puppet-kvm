@@ -11,7 +11,7 @@ class kvm (
   Hash[String, Hash] $guests = {},
 ) {
   package { [
-      'qemu-headless',
+      'qemu-base',
       'socat',
   ]: }
 
